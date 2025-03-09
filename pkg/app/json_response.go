@@ -14,7 +14,7 @@ type JSONResponse struct {
 	Code      string      `json:"code"`
 	Message   string      `json:"message"`
 	Data      interface{} `json:"data"`
-	Error     interface{} `json:"error,omitempty"`
+	Error     string      `json:"error,omitempty"`
 }
 
 type JSONPaginationResponse struct {
@@ -22,14 +22,19 @@ type JSONPaginationResponse struct {
 	*web.PaginationDTO
 }
 
-func ConstructJSONResponse(requestID, code, msg string, data, err interface{}) JSONResponse {
-	return JSONResponse{
+func ConstructJSONResponse(requestID, code, msg string, data interface{}, err error) JSONResponse {
+	response := JSONResponse{
 		RequestID: requestID,
 		Code:      code,
 		Message:   msg,
 		Data:      data,
-		Error:     err,
 	}
+
+	if err != nil {
+		response.Error = err.Error()
+	}
+
+	return response
 }
 
 func ConstructJSONPaginationResponse(requestID, code, msg string, data interface{}, pagination *web.PaginationDTO, err error) JSONPaginationResponse {

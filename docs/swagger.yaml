@@ -10,6 +10,11 @@ definitions:
       request_id:
         type: string
     type: object
+  web.CalculateInstallmentRequest:
+    properties:
+      amount:
+        type: number
+    type: object
   web.CreateTenorRequest:
     properties:
       data:
@@ -29,9 +34,80 @@ definitions:
     - name
     - phone_number
     type: object
+  web.SubmitFinancingRequest:
+    properties:
+      amount:
+        type: number
+      startDate:
+        type: string
+      tenor:
+        type: integer
+    type: object
 info:
   contact: {}
 paths:
+  /calculate-installments:
+    post:
+      consumes:
+      - application/json
+      description: Calculate installments
+      operationId: calculate-installments
+      parameters:
+      - description: Construct calculate installment request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/web.CalculateInstallmentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+      summary: Calculate installments
+      tags:
+      - finance
+  /submit-financing:
+    post:
+      consumes:
+      - application/json
+      description: Submit Financing
+      operationId: submit-financing
+      parameters:
+      - description: Construct submit financing request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/web.SubmitFinancingRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+      summary: Submit Financing
+      tags:
+      - finance
   /tenors:
     post:
       consumes:

@@ -13,20 +13,20 @@ import (
 )
 
 type UserService struct {
-	logger     logger.Interface
-	db         *postgres.Postgres
-	repository interfaces.UserRepository
+	logger         logger.Interface
+	db             *postgres.Postgres
+	userRepository interfaces.UserRepository
 }
 
 func NewUserService(
 	logger logger.Interface,
 	db *postgres.Postgres,
-	repository interfaces.UserRepository,
+	userRepository interfaces.UserRepository,
 ) interfaces.UserService {
 	return &UserService{
-		logger:     logger,
-		db:         db,
-		repository: repository,
+		logger:         logger,
+		db:             db,
+		userRepository: userRepository,
 	}
 }
 
@@ -37,5 +37,5 @@ func (s *UserService) Create(ctx context.Context, request *http.Request, data we
 		PhoneNumber: data.PhoneNumber,
 	}
 
-	return s.repository.Create(ctx, s.db.DB, newUser)
+	return s.userRepository.Create(ctx, s.db.DB, newUser)
 }

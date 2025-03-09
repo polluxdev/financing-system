@@ -46,14 +46,25 @@ func Run(config *config.Config) {
 	validator := validator.New(log)
 	validator.RegisterCustomValidator()
 
-	tenorRepo := repository.NewTenorRepo()
-	userRepo := repository.NewUserRepo()
+	tenorRepository := repository.NewTenorRepository()
+	userFacilityDetailRepository := repository.NewUserFacilityDetailRepository()
+	userFacilityLimitRepository := repository.NewUserFacilityLimitRepository()
+	userFacilityRepository := repository.NewUserFacilityRepository()
+	userRepository := repository.NewUserRepository()
 
-	tenorService := service.NewTenorService(log, db, tenorRepo)
-	userService := service.NewUserService(log, db, userRepo)
+	financeService := service.NewFinanceService(
+		log,
+		db,
+		tenorRepository,
+		userFacilityDetailRepository,
+		userFacilityLimitRepository,
+		userFacilityRepository,
+	)
+	tenorService := service.NewTenorService(log, db, tenorRepository)
+	userService := service.NewUserService(log, db, userRepository)
 
 	httpHandler := gin.New()
-	v1.NewRouter(httpHandler, log, config, validator, tenorService, userService)
+	v1.NewRouter(httpHandler, log, config, validator, financeService, tenorService, userService)
 	httpServer := httpserver.New(httpHandler, httpserver.Port(config.HTTPConfig.Port))
 
 	// Waiting signal

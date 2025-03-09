@@ -15,6 +15,100 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/calculate-installments": {
+            "post": {
+                "description": "Calculate installments",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "finance"
+                ],
+                "summary": "Calculate installments",
+                "operationId": "calculate-installments",
+                "parameters": [
+                    {
+                        "description": "Construct calculate installment request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.CalculateInstallmentRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.JSONResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/app.JSONResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.JSONResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/submit-financing": {
+            "post": {
+                "description": "Submit Financing",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "finance"
+                ],
+                "summary": "Submit Financing",
+                "operationId": "submit-financing",
+                "parameters": [
+                    {
+                        "description": "Construct submit financing request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.SubmitFinancingRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.JSONResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/app.JSONResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.JSONResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/tenors": {
             "post": {
                 "description": "Create a new tenor",
@@ -127,6 +221,14 @@ const docTemplate = `{
                 }
             }
         },
+        "web.CalculateInstallmentRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                }
+            }
+        },
         "web.CreateTenorRequest": {
             "type": "object",
             "required": [
@@ -153,6 +255,20 @@ const docTemplate = `{
                 },
                 "phone_number": {
                     "type": "string"
+                }
+            }
+        },
+        "web.SubmitFinancingRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "startDate": {
+                    "type": "string"
+                },
+                "tenor": {
+                    "type": "integer"
                 }
             }
         }

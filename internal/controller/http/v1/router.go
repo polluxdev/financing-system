@@ -22,6 +22,7 @@ func NewRouter(
 	logger logger.Interface,
 	config *config.Config,
 	validator validator.Validator,
+	financeService interfaces.FinanceService,
 	tenorService interfaces.TenorService,
 	userService interfaces.UserService,
 ) {
@@ -97,6 +98,7 @@ func NewRouter(
 	// Routers
 	group := handler.Group(basePath)
 	{
+		newFinanceRoutes(group, logger, config, validator, financeService)
 		newTenorRoutes(group, logger, config, validator, tenorService)
 		newUserRoutes(group, logger, config, validator, userService)
 	}

@@ -16,8 +16,14 @@ func (v *ValidatorImpl) ParseErrors(err interface{}) []string {
 
 	// Define error message templates for tags
 	tagMessages := map[string]func(err validator.FieldError) string{
+		"gt": func(err validator.FieldError) string {
+			return fmt.Sprintf("%s must be greater than %s", err.Field(), err.Param())
+		},
 		"required": func(err validator.FieldError) string {
 			return fmt.Sprintf("%s is required", err.Field())
+		},
+		"datetime": func(err validator.FieldError) string {
+			return fmt.Sprintf("%s is invalid format, should be %s", err.Field(), err.Param())
 		},
 		"isValidEmail": func(err validator.FieldError) string {
 			return fmt.Sprintf("%s address is invalid", err.Field())

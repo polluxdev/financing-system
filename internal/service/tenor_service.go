@@ -13,20 +13,20 @@ import (
 )
 
 type TenorService struct {
-	logger     logger.Interface
-	db         *postgres.Postgres
-	repository interfaces.TenorRepository
+	logger          logger.Interface
+	db              *postgres.Postgres
+	tenorRepository interfaces.TenorRepository
 }
 
 func NewTenorService(
 	logger logger.Interface,
 	db *postgres.Postgres,
-	repository interfaces.TenorRepository,
+	tenorRepository interfaces.TenorRepository,
 ) interfaces.TenorService {
 	return &TenorService{
-		logger:     logger,
-		db:         db,
-		repository: repository,
+		logger:          logger,
+		db:              db,
+		tenorRepository: tenorRepository,
 	}
 }
 
@@ -40,5 +40,5 @@ func (s *TenorService) Create(ctx context.Context, request *http.Request, data w
 		newTenors = append(newTenors, newTenor)
 	}
 
-	return s.repository.CreateBulk(ctx, s.db.DB, newTenors)
+	return s.tenorRepository.CreateBulk(ctx, s.db.DB, newTenors)
 }

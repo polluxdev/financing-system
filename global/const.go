@@ -16,10 +16,12 @@ const (
 	CONFLICT_ERROR        = "CONFLICT_ERROR"
 	NOT_FOUND_ERROR       = "NOT_FOUND_ERROR"
 	INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR"
+	INVALID_DATA          = "INVALID_DATA"
 
 	BAD_REQUEST_MESSAGE           = "bad request"
 	INVALID_REQUEST_MESSAGE       = "invalid request"
 	INTERNAL_SERVER_ERROR_MESSAGE = "internal server error"
+	NOT_FOUND_MESSAGE             = "data not found"
 	SUCCESS_CREATE_MESSAGE        = "create data successfully"
 	SUCCESS_READ_MESSAGE          = "read data successfully"
 	SUCCESS_UPDATE_MESSAGE        = "update data successfully"

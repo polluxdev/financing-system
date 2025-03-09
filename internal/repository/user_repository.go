@@ -10,7 +10,7 @@ import (
 
 type UserRepository struct{}
 
-func NewUserRepo() interfaces.UserRepository {
+func NewUserRepository() interfaces.UserRepository {
 	return &UserRepository{}
 }
 
