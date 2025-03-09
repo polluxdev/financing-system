@@ -1,0 +1,28 @@
+tz: "UTC"
+
+app:
+  name: "financing-system"
+  version: "1.0.0"
+  env: "local"
+  host: "localhost:5000"
+
+http:
+  port: 5000
+  read_timeout: 5
+  write_timeout: 5
+  shutdown_timeout: 3
+
+log:
+  log_level: "debug"
+
+postgres:
+  user: "postgres"
+  password: "password"
+  host: "localhost"
+  port: 5432
+  database: "db_finance"
+  ssl_mode: "disable"
+  timezone: "UTC"
+  max_pool_size: 10
+  conn_attempts: 5
+  conn_timeout: 3

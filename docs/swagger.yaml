@@ -1,0 +1,97 @@
+definitions:
+  app.JSONResponse:
+    properties:
+      code:
+        type: string
+      data: {}
+      error: {}
+      message:
+        type: string
+      request_id:
+        type: string
+    type: object
+  web.CreateTenorRequest:
+    properties:
+      data:
+        items:
+          type: integer
+        type: array
+    required:
+    - data
+    type: object
+  web.CreateUserRequest:
+    properties:
+      name:
+        type: string
+      phone_number:
+        type: string
+    required:
+    - name
+    - phone_number
+    type: object
+info:
+  contact: {}
+paths:
+  /tenors:
+    post:
+      consumes:
+      - application/json
+      description: Create a new tenor
+      operationId: create-tenor
+      parameters:
+      - description: Construct new tenor
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/web.CreateTenorRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+      summary: Create tenor
+      tags:
+      - tenor
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user
+      operationId: create-user
+      parameters:
+      - description: Construct new user
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/web.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.JSONResponse'
+      summary: Create user
+      tags:
+      - user
+swagger: "2.0"
